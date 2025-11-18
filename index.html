@@ -3,60 +3,98 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Age Calculator</title>
+    <title>Age Calculator - Simple & Clean</title>
+
     <style>
       body {
-        font-family: Arial, sans-serif;
-        background: #f4f6f8;
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(135deg, #e0eafb, #f7f9fc);
+        min-height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
-        margin: 0;
       }
-      .container {
-        background: #fff;
-        padding: 30px;
-        width: 350px;
-        border-radius: 15px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+      .card {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(12px);
+        padding: 35px;
+        width: 360px;
+        border-radius: 18px;
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
         text-align: center;
+        animation: fadeIn 0.6s ease;
       }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 25px;
+        font-weight: 600;
+        color: #222;
+        letter-spacing: -0.5px;
+      }
+
       input {
-        padding: 10px;
-        width: 100%;
-        margin-top: 10px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-      }
-      button {
         margin-top: 20px;
         width: 100%;
         padding: 12px;
-        background: #0078ff;
+        font-size: 15px;
+        border: 1px solid #d0d7e1;
+        border-radius: 10px;
+        outline: none;
+        background: #fdfdfd;
+      }
+
+      input:focus {
+        border-color: #4f8bff;
+      }
+
+      button {
+        margin-top: 22px;
+        width: 100%;
+        padding: 13px;
+        background: #4f8bff;
         border: none;
-        color: white;
-        border-radius: 8px;
         font-size: 16px;
+        color: white;
+        border-radius: 10px;
         cursor: pointer;
+        transition: 0.2s ease;
+        font-weight: 500;
       }
+
       button:hover {
-        background: #005fcc;
+        background: #3f75d8;
       }
+
       #result {
-        margin-top: 20px;
-        font-size: 20px;
-        font-weight: bold;
+        margin-top: 22px;
+        font-size: 18px;
         color: #333;
       }
     </style>
   </head>
   <body>
-    <div class="container">
+    <div class="card">
       <h2>Age Calculator</h2>
+
       <input type="date" id="dob" />
+
       <button onclick="calculateAge()">Calculate Age</button>
-      <p id="result"></p>
+
+      <div id="result"></div>
     </div>
 
     <script>
@@ -64,34 +102,30 @@
         const dob = document.getElementById("dob").value;
         if (!dob) {
           document.getElementById("result").innerHTML =
-            "Please enter your date of birth!";
+            "Please select your date of birth.";
           return;
         }
 
         const birthDate = new Date(dob);
         const today = new Date();
 
-        let ageYears = today.getFullYear() - birthDate.getFullYear();
-        let ageMonths = today.getMonth() - birthDate.getMonth();
-        let ageDays = today.getDate() - birthDate.getDate();
+        let years = today.getFullYear() - birthDate.getFullYear();
+        let months = today.getMonth() - birthDate.getMonth();
+        let days = today.getDate() - birthDate.getDate();
 
-        if (ageDays < 0) {
-          ageMonths--;
-          ageDays += new Date(
-            today.getFullYear(),
-            today.getMonth(),
-            0
-          ).getDate();
+        if (days < 0) {
+          months--;
+          days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
         }
 
-        if (ageMonths < 0) {
-          ageYears--;
-          ageMonths += 12;
+        if (months < 0) {
+          years--;
+          months += 12;
         }
 
         document.getElementById(
           "result"
-        ).innerHTML = `You are <b>${ageYears}</b> years, <b>${ageMonths}</b> months and <b>${ageDays}</b> days old.`;
+        ).innerHTML = `<b>${years}</b> years, <b>${months}</b> months, <b>${days}</b> days`;
       }
     </script>
   </body>
